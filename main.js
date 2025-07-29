@@ -1,26 +1,60 @@
-function player(name, symbol) {
-	return {name, symbol};
+const playerForm = document.getElementById('playerForm');
+const board = document.getElementById('boardContainer');
+const cells = document.querySelectorAll('.cell');
+const gameStatus = document.getElementById('status');
+const resetButton = document.getElementById('resetBtn');
+
+const player = {
+	'X' : '' ,
+	'O' : '' 
+};
+
+let currentPlayer = 'X';
+
+playerForm.addEventListener('submit', (e) => {
+	e.preventDefault();
+	player.X = document.querySelector('input[name="playerX"]').value || 'X';
+	player.O = document.querySelector('input[name="playerO"]').value || 'O';
+	board.style.display = 'flex';
+	playerForm.style.display = 'none';
+	gameStatus.textContent = `Player ${player[currentPlayer]}'s turn`;
+})
+
+resetButton.addEventListener('click', () => {
+	cells.forEach(c => {
+		c.textContent = '';
+		c.style.pointerEvents = 'auto';
+	});
+	currentPlayer = 'X';
+	gameStatus.textContent = `Player ${player[currentPlayer]}'s turn`;
+})
+
+for (let cell of cells) {
+	cell.addEventListener('click', () => {
+		if (cell.textContent!='') return;
+		
+		else {
+			cell.textContent = currentPlayer;
+			if(checkWinner()){
+				cells.forEach(c => c.style.pointerEvents = 'none'); // Disable further moves
+			}
+			else{
+				currentPlayer = currentPlayer === 'X' ? 'O' : 'X' ;
+				gameStatus.textContent = `Player ${player[currentPlayer]}'s turn`;
+			}
+		} ;
+	})
 }
 
-function cell() {
-	let cell = Array.from({length : 3}, () => Array.from({length : 3}, () => 0));
-	let isEmpty = () => {};
-	return { isEmpty };
+
+function checkWinner() {
+	let winConditions = [[0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6]];
+	for (let winCondition of winConditions) {
+		let win = winCondition.every((e) => cells[e].textContent === currentPlayer);
+		if(win) {
+			gameStatus.textContent = `Player ${player[currentPlayer]} has won`;
+			return true;
+		}
+	}
+	return false;
 }
-
-function board() {}
-
-function gameController () {
-	let playerName = [...document.querySelectorAll(input[name = 'playerName']).value];
-	let playerSymbol = [...document.querySelectorAll(input[name = 'playerSymbol']).value];
-	
-	let playerOne = player(playerName[0], playerSymbol[0]);
-	let playerTwo = player(playerName[1], playerSymbol[1]);
-	console.log(playerOne, playerTwo);
-}
-
-function winnerChecker() {
-	
-}
-
-function gameRenderer() {}

@@ -7,6 +7,43 @@
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
+	
+		<!-- Player form -->
+
+		<form id="playerForm">
+			<h1>Enter Your Name</h1>
+			<div>
+				<label for="playerX">Player X's Name</label>
+				<input type="text" name="playerX" id="playerX" class="playerX">
+			</div>
+			<div>
+				<label for="playerY">Player O's Name</label>
+				<input type="text" name="playerO" id="playerO" class="playerO">
+			</div>
+			<div>
+				<input type="submit" value="Start">
+			</div>
+		</form>
+		
+		<!-- Board -->
+		<div id="boardContainer">
+			<h1>Tic Tac Toe</h1>
+			<div class="board" id="board">
+				<!-- 9 cells -->
+				<div class="cell" data-index="0"></div>
+				<div class="cell" data-index="1"></div>
+				<div class="cell" data-index="2"></div>
+				<div class="cell" data-index="3"></div>
+				<div class="cell" data-index="4"></div>
+				<div class="cell" data-index="5"></div>
+				<div class="cell" data-index="6"></div>
+				<div class="cell" data-index="7"></div>
+				<div class="cell" data-index="8"></div>
+			</div>
+
+			<div id="status">Player X's turn</div>
+			<button class="resetBtn" id="resetBtn">Reset</button>
+		</div>
 		<script src="main.js"></script>
 	</body>
 </html>
